@@ -1,25 +1,25 @@
 import { useEffect, useState } from 'react';
 import NewsList from "../../components/shared/NewsList.tsx";
-import { useFetching } from "../../hooks/useFetching.ts";
 import NewsService from "../../API/NewsService.ts";
 import Heading from "../../components/UI/Heading.tsx";
+import Notification from "../../components/UI/Notification.tsx";
 
 
 const Home = () => {
     const [news, setNews] = useState([]);
+    const [newsError, setNewsError] = useState('');
+    const [isNewsLoading, setIsNewsLoading] = useState(false);
 
-    const [
-        fetchNews,
-        isNewsLoading,
-        newsError
-    ]: [
-        (...args: unknown[]) => Promise<void>,
-        boolean,
-        string
-    ] = useFetching(async () => {
-        const response = await NewsService.getAll();
-        setNews(response);
-    })
+    const fetchNews = () => {
+        setIsNewsLoading(true);
+        NewsService.getAll()
+            .then(response => {
+                setNews(response);
+            }).catch(error =>
+            setNewsError(error.message)
+            );
+        setIsNewsLoading(false);
+    }
 
     useEffect(() => {
         fetchNews()
@@ -33,7 +33,7 @@ const Home = () => {
             }
             {
                 newsError &&
-                <Heading>Произошла ошибка: {newsError}</Heading>
+                <Notification label={newsError} />
             }
         </div>
     )
