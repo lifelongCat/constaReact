@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Provider } from "react-redux";
 import DefaultLayout from "./layouts/default/default.tsx";
 import Home from "./pages/HomePage/HomePage.tsx";
 import ServicesList from "./pages/ServicesListPage/ServicesListPage.tsx";
@@ -7,6 +8,8 @@ import Auth from "./pages/AuthPage/AuthPage.tsx";
 import ServiceDetail from "./pages/ServiceDetailPage/ServiceDetailPage.tsx";
 import Profile from "./pages/ProfilePage/ProfilePage.tsx";
 import NotFound from "./pages/NotFoundPage/NotFoundPage.tsx";
+import store from "./store/store.tsx";
+import ProtectedRoute from "./components/shared/ProtectedRoute.tsx";
 
 
 const appRouter = createBrowserRouter([
@@ -15,7 +18,7 @@ const appRouter = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home />
+                element: <ProtectedRoute><Home /></ProtectedRoute>
             },
             {
                 path: "/login",
@@ -23,15 +26,15 @@ const appRouter = createBrowserRouter([
             },
             {
                 path: "/user/:id",
-                element: <Profile />
+                element: <ProtectedRoute><Profile /></ProtectedRoute>
             },
             {
                 path: "/services",
-                element: <ServicesList />
+                element: <ProtectedRoute><ServicesList /></ProtectedRoute>
             },
             {
                 path: "/services/:id",
-                element: <ServiceDetail />
+                element: <ProtectedRoute><ServiceDetail /></ProtectedRoute>
             },
             {
                 path: "*",
@@ -44,5 +47,7 @@ const appRouter = createBrowserRouter([
 
 
 createRoot(document.getElementById('root')!).render(
-    <RouterProvider router={appRouter} />
+    <Provider store={store}>
+        <RouterProvider router={appRouter} />
+    </Provider>
 );
