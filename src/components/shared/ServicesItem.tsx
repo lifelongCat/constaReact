@@ -38,6 +38,7 @@ const ServicesItem: FC<ServicesItemProps> = ({item}) => {
                 <Text>{item.name}</Text>
                 <Text style={{color: "gray", marginBottom: "3vh", fontSize: "0.6rem"}}>{item.description}</Text>
                 <Text style={{marginBottom: "1vh", fontSize: "0.6rem"}}>{item.createdAt}</Text>
+                <Text><a href={`/services/${item.id}`}>Подробнее</a></Text>
             </div>
         </div>
     );
