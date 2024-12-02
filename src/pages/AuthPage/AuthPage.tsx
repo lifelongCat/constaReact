@@ -15,18 +15,21 @@ const Auth = () => {
         password: ''
     });
     const [loginError, setLoginError] = useState('');
+    const [isLoginLoading, setIsLoginLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const LoginUser = async (e: MouseEvent) => {
         e.preventDefault();
-        UserService.login(credentials.username, credentials.password)
+        setIsLoginLoading(true);
+        await UserService.login(credentials.username, credentials.password)
             .then(response => {
-                dispatch(setUser({token: response.accessToken, username: response.username}))
-                navigate("/")
-            }).catch(error =>
-                setLoginError(error.message)
-            );
+                dispatch(setUser(response));
+                navigate("/");
+            }).catch(error => {
+                setLoginError(error.message);
+            });
+        setIsLoginLoading(false);
     }
 
     return (
@@ -62,8 +65,13 @@ const Auth = () => {
                 />
                 <Button onClick={LoginUser} view="secondary" label="Войти"/>
             </form>
+            {
+                isLoginLoading &&
+                <Heading>Идёт загрузка...</Heading>
+            }
         </div>
     )
 };
+
 
 export default Auth;
