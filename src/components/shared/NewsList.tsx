@@ -38,7 +38,7 @@ const NewsList: FC<NewsListProps> = ({news, title}) => {
                 marginRight: "auto"
             }}>
                 {news.map(item =>
-                    <NewsItem item={item} />
+                    <NewsItem key={item.id} item={item} />
                 )}
             </div>
         </div>
