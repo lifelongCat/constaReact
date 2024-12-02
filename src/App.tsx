@@ -25,7 +25,7 @@ const appRouter = createBrowserRouter([
                 element: <Auth />
             },
             {
-                path: "/user/:id",
+                path: "/profile",
                 element: <ProtectedRoute><Profile /></ProtectedRoute>
             },
             {

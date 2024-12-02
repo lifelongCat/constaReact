@@ -5,7 +5,7 @@ const userSlice = createSlice({
     name: 'user',
     initialState: {
         token: null,
-        username: null
+        username: ''
     },
     reducers: {
         setUser: (state, action) => {
@@ -14,7 +14,7 @@ const userSlice = createSlice({
         },
         clearUser: (state) => {
             state.token = null;
-            state.username = null;
+            state.username = '';
         },
     },
 });
