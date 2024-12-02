@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { createRoot } from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import DefaultLayout from "./layouts/default/default.tsx";
+import Home from "./pages/HomePage/HomePage.tsx";
+import ServicesList from "./pages/ServicesListPage/ServicesListPage.tsx";
+import Auth from "./pages/AuthPage/AuthPage.tsx";
+import ServiceDetail from "./pages/ServiceDetailPage/ServiceDetailPage.tsx";
+import Profile from "./pages/ProfilePage/ProfilePage.tsx";
+import NotFound from "./pages/NotFoundPage/NotFoundPage.tsx";
 
-function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+const appRouter = createBrowserRouter([
+    {
+        element: <DefaultLayout />,
+        children: [
+            {
+                path: "/",
+                element: <Home />
+            },
+            {
+                path: "/login",
+                element: <Auth />
+            },
+            {
+                path: "/user/:id",
+                element: <Profile />
+            },
+            {
+                path: "/services",
+                element: <ServicesList />
+            },
+            {
+                path: "/services/:id",
+                element: <ServiceDetail />
+            },
+            {
+                path: "*",
+                element: <NotFound />
+            }
+        ]
+    }
 
-export default App
+]);
+
+
+createRoot(document.getElementById('root')!).render(
+    <RouterProvider router={appRouter} />
+);

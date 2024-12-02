@@ -1,0 +1,16 @@
+.footer-header-block {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.footer-header-part {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+}
+
+.footer-header-text {
+    color: var(--color-control-typo-clear);
+    padding: 0 var(--space-m);
+}
