@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import DefaultLayout from "./layouts/default/default.tsx";
 import Home from "./pages/HomePage/HomePage.tsx";
-import ServicesList from "./pages/ServicesListPage/ServicesListPage.tsx";
+import ServicesPage from "./pages/Services/ServicesPage.tsx";
 import Auth from "./pages/AuthPage/AuthPage.tsx";
 import ServiceDetail from "./pages/ServiceDetailPage/ServiceDetailPage.tsx";
 import Profile from "./pages/ProfilePage/ProfilePage.tsx";
@@ -30,7 +30,7 @@ const appRouter = createBrowserRouter([
             },
             {
                 path: "/services",
-                element: <ProtectedRoute><ServicesList /></ProtectedRoute>
+                element: <ProtectedRoute><ServicesPage /></ProtectedRoute>
             },
             {
                 path: "/services/:id",
