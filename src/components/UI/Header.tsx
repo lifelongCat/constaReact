@@ -1,5 +1,4 @@
 import { Button } from '@consta/uikit/Button';
-import { Text } from '@consta/uikit/Text';
 import PagesLinks from "./PagesLinks.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../store/reducers/userReducer.ts";
@@ -17,12 +16,27 @@ const Header = () => {
             <PagesLinks />
             <div className="footer-header-part">
                 {
-                    user.token ? <Text className="footer-header-text">{user.username}</Text> : null
+                    user.token
+                    ? <Button
+                            view="clear"
+                            label={user.username}
+                            className="footer-header-text"
+                            onClick={() => navigate("/profile")}
+                        />
+                    : null
                 }
                 {
                     user.token
-                    ? <Button onClick={() => dispatch(clearUser())} label="Выход" view="clear"/>
-                    : <Button onClick={() => navigate('/login')} label="Вход" view="clear"/>
+                    ? <Button
+                            view="clear"
+                            label="Выход"
+                            onClick={() => dispatch(clearUser())}
+                        />
+                    : <Button
+                            view="clear"
+                            label="Вход"
+                            onClick={() => navigate("/login")}
+                        />
                 }
             </div>
         </header>
