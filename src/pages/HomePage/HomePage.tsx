@@ -3,33 +3,36 @@ import NewsList from "../../components/shared/NewsList.tsx";
 import NewsService from "../../API/NewsService.ts";
 import Heading from "../../components/UI/Heading.tsx";
 import Notification from "../../components/UI/Notification.tsx";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store.tsx";
+import { setNews } from "../../store/reducers/newsReducer.ts";
 
 
 const Home = () => {
-    const [news, setNews] = useState([]);
     const [newsError, setNewsError] = useState('');
+    const dispatch = useDispatch();
+    const news = useSelector((state: RootState) => state.news.list);
     const [isNewsLoading, setIsNewsLoading] = useState(false);
 
-    const fetchNews = () => {
+    useEffect(() => {
+        if (news.length) return;
         setIsNewsLoading(true);
         NewsService.getAll()
-            .then(response => {
-                setNews(response);
-            }).catch(error =>
-            setNewsError(error.message)
+            .then(response =>
+                dispatch(setNews(response))
+            ).catch(error =>
+                setNewsError(error.message)
+            ).finally(() =>
+                setIsNewsLoading(false)
             );
-        setIsNewsLoading(false);
-    }
-
-    useEffect(() => {
-        fetchNews()
-    }, []);
+    }, [dispatch, news.length]);
 
     return (
         <div>
             {
-                (isNewsLoading && <Heading>Загрузка новостей...</Heading>) ||
-                <NewsList news={news} title="Новости" />
+                isNewsLoading
+                ? <Heading>Загрузка новостей...</Heading>
+                : <NewsList news={news} title="Новости" />
             }
             {
                 newsError &&

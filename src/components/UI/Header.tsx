@@ -30,7 +30,7 @@ const Header = () => {
                     ? <Button
                             view="clear"
                             label="Выход"
-                            onClick={() => dispatch(clearUser())}
+                            onClick={() => {dispatch(clearUser()); navigate("/login")}}
                         />
                     : <Button
                             view="clear"

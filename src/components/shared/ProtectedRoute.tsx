@@ -1,7 +1,5 @@
 import { FC, ReactElement, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store.tsx";
 
 
 interface ProtectedRouteProps {
@@ -10,14 +8,14 @@ interface ProtectedRouteProps {
 
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({children}) => {
-    const user = useSelector((state: RootState) => state.user);
     const navigate = useNavigate();
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
-        if (!user.token) {
+        if (!token) {
             navigate("/login")
         }
-    }, [user, navigate]);
+    }, [token, navigate]);
 
     return (
         <div>
