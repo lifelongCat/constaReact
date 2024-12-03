@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const PagesLinks = () => {
+    const token = localStorage.getItem("token");
     const navigate = useNavigate();
 
     return (
@@ -12,11 +13,14 @@ const PagesLinks = () => {
                 label="Главная страница"
                 view="clear"
             />
-            <Button
-                onClick={() => navigate('/services')}
-                label="Услуги компании"
-                view="clear"
-            />
+            {
+                token &&
+                <Button
+                    onClick={() => navigate('/services')}
+                    label="Услуги компании"
+                    view="clear"
+                />
+            }
         </div>
     )
 };
