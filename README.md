@@ -33,11 +33,11 @@ react_module_2024/
 - Именования папок компонентов в формате main-page
 
 #### Наименования веток
-feature/feature-name
-hotfix/hotfix-name
-docs/docs-change-name
+- feature/feature-name
+- hotfix/hotfix-name
+- docs/docs-change-name
 
 ##### Наименование коммитов
-feat: добавляет новую функцию
-hotfix: исправляет ошибку
-docs: изменение документации/README
+- feat: добавляет новую функцию
+- hotfix: исправляет ошибку
+- docs: изменение документации/README
