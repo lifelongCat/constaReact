@@ -8,7 +8,7 @@ const Footer = () => {
             <PagesLinks />
             <div className="footer-header-part">
                 <Text className="footer-header-text">
-                    (c) Привет, мир! 2024
+                    (c) Привет, мир! {new Date().getFullYear()}
                 </Text>
             </div>
         </footer>
